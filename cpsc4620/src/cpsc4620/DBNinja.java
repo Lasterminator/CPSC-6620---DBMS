@@ -11,16 +11,16 @@ import java.util.ArrayList;
 /*
  * This file is where most of your code changes will occur You will write the code to retrieve
  * information from the database, or save information to the database
- *
+ * 
  * The class has several hard coded static variables used for the connection, you will need to
  * change those to your connection information
- *
+ * 
  * This class also has static string variables for pickup, delivery and dine-in. If your database
  * stores the strings differently (i.e "pick-up" vs "pickup") changing these static variables will
  * ensure that the comparison is checking for the right string in other places in the program. You
  * will also need to use these strings if you store this as boolean fields or an integer.
- *
- *
+ * 
+ * 
  */
 
 /**
@@ -63,10 +63,11 @@ public final class DBNinja {
     public static void addOrder(Order o) throws SQLException, IOException {
         connect_to_db();
         /*
-         * add code to add the order to the DB. Remember that we're not just
-         * adding the order to the order DB table, but we're also recording
-         * the necessary data for the delivery, dinein, and pickup tables
-         */
+		 * add code to add the order to the DB. Remember that we're not just
+		 * adding the order to the order DB table, but we're also recording
+		 * the necessary data for the delivery, dinein, and pickup tables
+		 * 
+		 */
         String[] generatedId = { "ID" };
 
         String insertStatement = "INSERT INTO `Order`"
@@ -110,11 +111,11 @@ public final class DBNinja {
     public static void addPizza(Pizza p) throws SQLException, IOException {
         connect_to_db();
         /*
-         * Add the code needed to insert the pizza into into the database.
-         * Keep in mind adding pizza discounts to that bridge table and
-         * instance of topping usage to that bridge table if you have't accounted
-         * for that somewhere else.
-         */
+		 * Add the code needed to insert the pizza into into the database.
+		 * Keep in mind adding pizza discounts and toppings associated with the pizza,
+		 * there are other methods below that may help with that process.
+		 * 
+		 */
         String[] generatedId = { "ID" };
 
         String insertStatement = "insert into Pizza(PizzaOrderId,PizzaSize,PizzaCrust,PizzaCost,PizzaPrice,PizzaTime) "
@@ -156,12 +157,14 @@ public final class DBNinja {
     {
         connect_to_db();
         /*
-         * This function should 2 two things.
-         * We need to update the topping inventory every time we use t topping (accounting for extra toppings as well)
-         * and we need to add that instance of topping usage to the pizza-topping bridge if we haven't done that elsewhere
-         * Ideally, you should't let toppings go negative. If someone tries to use toppings that you don't have, just print
-         * that you've run out of that topping.
-         */
+		 * This method should do 2 two things.
+		 * - update the topping inventory every time we use t topping (accounting for extra toppings as well)
+		 * - connect the topping to the pizza
+		 *   What that means will be specific to your yimplementatinon.
+		 * 
+		 * Ideally, you should't let toppings go negative....but this should be dealt with BEFORE calling this method.
+		 * 
+		 */
         try {
             connect_to_db();
             if((isDoubled && t.getCurINVT()<2) &&(!isDoubled && t.getCurINVT()<1)) {
@@ -198,10 +201,11 @@ public final class DBNinja {
     public static void usePizzaDiscount(Pizza p, Discount d) throws SQLException, IOException {
         connect_to_db();
         /*
-         * Helper function I used to update the pizza-discount bridge table.
-         * You might use this, you might not depending on where / how to want to update
-         * this table
-         */
+		 * This method connects a discount with a Pizza in the database.
+		 * 
+		 * What that means will be specific to your implementatinon.
+		 */
+		
         String insertStatement = "insert into `PizzaDiscount`(PizzaDiscountPizzaID,PizzaDiscountDiscountID)" + "values" + "(" + p.getPizzaID() + ","
                 + d.getDiscountID() + ")";
 
@@ -221,10 +225,12 @@ public final class DBNinja {
     public static void useOrderDiscount(Order o, Discount d) throws SQLException, IOException {
         connect_to_db();
         /*
-         * Helper function I used to update the pizza-discount bridge table.
-         * You might use this, you might not depending on where / how to want to update
-         * this table
-         */
+		 * This method connects a discount with an order in the database
+		 * 
+		 * You might use this, you might not depending on where / how to want to update
+		 * this information in the dabast
+		 */
+		
         String insertStatement = "insert into `OrderDiscount`(OrderDiscountOrderId,OrderDiscountDiscountId)" + "values" + "(" + o.getOrderID() + ","
                 + d.getDiscountID() + ")";
 
@@ -315,8 +321,9 @@ public final class DBNinja {
     public static Integer addCustomer(Customer c) throws SQLException, IOException {
         connect_to_db();
         /*
-         * This should add a customer to the database
-         */
+		 * This method adds a new customer to the database.
+		 * 
+		 */
 
         String insertStatement = "INSERT INTO `Customer`(CustomerFName,CustomerLName,CustomerPhone) VALUES (?,?,?)";
         String[] generatedId = { "ID" };
@@ -348,9 +355,9 @@ public final class DBNinja {
     public static void completeOrder(Order o) throws SQLException, IOException {
         connect_to_db();
         /*
-         * Find the specified order in the database and mark that order as complete in the database.
-         *
-         */
+		 * Find the specifed order in the database and mark that order as complete in the database.
+		 * 
+		 */
         try {
             connect_to_db();
 
@@ -393,14 +400,11 @@ public final class DBNinja {
         connect_to_db();
 
         /*
-         * I used this function to PRINT (not return) the inventory list.
-         * When you print the inventory (either here or somewhere else)
-         * be sure that you print it in a way that is readable.
-         *
-         *
-         *
-         * The topping list should also print in alphabetical order
-         */
+		 * Queries the database and prints the current topping list with quantities.
+		 *  
+		 * The result should be readable and sorted as indicated in the prompt.
+		 * 
+		 */
 
 
         //DO NOT FORGET TO CLOSE YOUR CONNECTION
@@ -440,6 +444,18 @@ public final class DBNinja {
     public static ArrayList<Order> getOrders(boolean openOnly) throws SQLException, IOException {
         connect_to_db(); // Ensure database connection is established
 
+        /*
+		 * Return an arraylist of all of the orders.
+		 * 	openOnly == true => only return a list of open (ie orders that have not been marked as completed)
+		 *           == false => return a list of all the orders in the database
+		 * Remember that in Java, we account for supertypes and subtypes
+		 * which means that when we create an arrayList of orders, that really
+		 * means we have an arrayList of dineinOrders, deliveryOrders, and pickupOrders.
+		 * 
+		 * Don't forget to order the data coming from the database appropriately.
+		 * 
+		 */
+
         ArrayList<Order> orders = new ArrayList<>();
 
         String selectQuery = openOnly ? "select * from `Order` where OrderStatus = 0 order by OrderId desc;"
@@ -471,10 +487,10 @@ public final class DBNinja {
     public static ArrayList<Order> getOrdersByDate(String date) throws SQLException, IOException{
         connect_to_db();
         /*
-         * Query the database for ALL the orders placed on a specific date
-         * and return a list of those orders.
-         *
-         */
+		 * Query the database for ALL the orders placed on a specific date
+		 * and return a list of those orders.
+		 *  
+		 */
         ArrayList<Order> orders = new ArrayList<Order>();
 
         try {
@@ -512,8 +528,13 @@ public final class DBNinja {
     }
 
     public static Order getLastOrder()  throws SQLException, IOException{
-        // Assuming 'connect_to_db()' method establishes a database connection and 'conn' is the connection object
         connect_to_db();
+        /*
+		 * Query the database for the LAST order added
+		 * then return an Order object for that order.
+		 * NOTE...there should ALWAYS be a "last order"!
+		 */
+		
 
         Order lastOrder = null;
         String selectQuery = "SELECT * FROM `Order` ORDER BY OrderId DESC LIMIT 1;"; // Query to get the last order
@@ -547,11 +568,11 @@ public final class DBNinja {
 
     public static Discount findDiscountByName(String name) throws SQLException, IOException{
         /*
-         * Query the database for a discount using it's name.
-         * If found, then return an OrderDiscount object for the discount.
-         * If it's not found....then return null
-         *
-         */
+		 * Query the database for a discount using it's name.
+		 * If found, then return an OrderDiscount object for the discount.
+		 * If it's not found....then return null
+		 *  
+		 */
 
         connect_to_db();
 
@@ -588,11 +609,11 @@ public final class DBNinja {
 
     public static Customer findCustomerByPhone(String phoneNumber) throws SQLException, IOException{
         /*
-         * Query the database for a customer using a phone number.
-         * If found, then return a Customer object for the customer.
-         * If it's not found....then return null
-         *
-         */
+		 * Query the database for a customer using a phone number.
+		 * If found, then return a Customer object for the customer.
+		 * If it's not found....then return null
+		 *  
+		 */
 
         connect_to_db();
 
@@ -627,8 +648,14 @@ public final class DBNinja {
     }
 
     public static ArrayList<Topping> getToppingList() throws SQLException, IOException {
-        ArrayList<Topping> toppings = new ArrayList<>();
         connect_to_db();
+        /*
+		 * Query the database for the aviable toppings and 
+		 * return an arrayList of all the available toppings. 
+		 * Don't forget to order the data coming from the database appropriately.
+		 * 
+		 */
+        ArrayList<Topping> toppings = new ArrayList<>();
 
         // Query the database
         String selectQuery = "SELECT * FROM Topping ORDER BY ToppingID";
@@ -666,15 +693,16 @@ public final class DBNinja {
 
 
     public static Topping findToppingByName(String name) throws SQLException, IOException{
+        connect_to_db();
         /*
-         * Query the database for the topping using it's name.
-         * If found, then return a Topping object for the topping.
-         * If it's not found....then return null
-         *
-         */
+		 * Query the database for the topping using it's name.
+		 * If found, then return a Topping object for the topping.
+		 * If it's not found....then return null
+		 *  
+		 */
 
         ArrayList<Topping> toppings = new ArrayList<>();
-        connect_to_db();
+        
 
         // Query the database
         String selectQuery = "SELECT * FROM Topping where ToppingName = ?";
@@ -714,9 +742,9 @@ public final class DBNinja {
     public static void addToInventory(Topping t, double quantity) throws SQLException, IOException {
         connect_to_db();
         /*
-         * Updates the quantity of the topping in the database by the amount specified.
-         *
-         * */
+		 * Updates the quantity of the topping in the database by the amount specified.
+		 * 
+		 * */
 
         String updateQuery = "UPDATE Topping SET ToppingCurrentInventory = ToppingCurrentInventory + ? WHERE ToppingID = ?";
 
@@ -751,18 +779,33 @@ public final class DBNinja {
         //DO NOT FORGET TO CLOSE YOUR CONNECTION
     }
 
-    public static boolean checkDate(int year, int month, int day, String dateOfOrder) {
-        //Helper function I used to help sort my dates. You likely wont need these
-
-
-        return false;
-    }
+    public static boolean checkDate(int year, int month, int day, String dateOfOrder)
+	{
+		if(getYear(dateOfOrder) > year)
+			return true;
+		else if(getYear(dateOfOrder) < year)
+			return false;
+		else
+		{
+			if(getMonth(dateOfOrder) > month)
+				return true;
+			else if(getMonth(dateOfOrder) < month)
+				return false;
+			else
+			{
+				if(getDay(dateOfOrder) >= day)
+					return true;
+				else
+					return false;
+			}
+		}
+	}
 
 
     /*
-     * The next 3 private functions help get the individual components of a SQL datetime object.
-     * You're welcome to keep them or remove them.
-     */
+	 * The next 3 private methods help get the individual components of a SQL datetime object. 
+	 * You're welcome to keep them or remove them.
+	 */
     private static int getYear(String date)// assumes date format 'YYYY-MM-DD HH:mm:ss'
     {
         return Integer.parseInt(date.substring(0,4));
@@ -781,10 +824,10 @@ public final class DBNinja {
 
     public static double getBaseCustPrice(String size, String crust) throws SQLException, IOException {
         connect_to_db();
-        /*
-         * Query the database for the base customer price for that size and crust pizza.
-         *
-         */
+        /* 
+		 * Query the database fro the base customer price for that size and crust pizza.
+		 * 
+		*/
         double bp = 0.0;
         try (Statement statement = conn.createStatement();
              ResultSet resultSet = statement.executeQuery("select * from `Base` where BasePizzaSize='"+size+"' and BasePizzaCrust='"+crust+"';")) {
@@ -804,21 +847,21 @@ public final class DBNinja {
     public static String getCustomerName(int CustID) throws SQLException, IOException
     {
         /*
-         * This is a helper method to fetch and format the name of a customer
-         * based on a customer ID. This is an example of how to interact with
-         * your database from Java.  It's used in the model solution for this project...so the code works!
-         *
-         * OF COURSE....this code would only work in your application if the table & field names match!
-         *
-         */
+		 * This is a helper method to fetch and format the name of a customer
+		 * based on a customer ID. This is an example of how to interact with 
+		 * your database from Java.  It's used in the model solution for this project...so the code works!
+		 * 
+		 * OF COURSE....this code would only work in your application if the table & field names match!
+		 *
+		 */
 
         connect_to_db();
 
-        /*
-         * an example query using a constructed string...
-         * remember, this style of query construction could be subject to sql injection attacks!
-         *
-         */
+        /* 
+		 * an example query using a constructed string...
+		 * remember, this style of query construction could be subject to sql injection attacks!
+		 * 
+		 */
         String cname1 = "";
         String query = "Select CustomerFName, CustomerLName From Customer WHERE CustomerID=" + CustID + ";";
         Statement stmt = conn.createStatement();
@@ -829,10 +872,10 @@ public final class DBNinja {
             cname1 = rset.getString(1) + " " + rset.getString(2);
         }
 
-        /*
-         * an example of the same query using a prepared statement...
-         *
-         */
+        /* 
+		* an example of the same query using a prepared statement...
+		* 
+		*/
         String cname2 = "";
         PreparedStatement os;
         ResultSet rset2;
@@ -852,10 +895,11 @@ public final class DBNinja {
 
     public static double getBaseBusPrice(String size, String crust) throws SQLException, IOException {
         connect_to_db();
-        /*
-         * Query the database for the base business price for that size and crust pizza.
-         *
-         */
+        /* 
+		 * Query the database fro the base business price for that size and crust pizza.
+		 * 
+		*/
+		
         double bp = 0.0;
         try (Statement statement = conn.createStatement();
              ResultSet resultSet = statement.executeQuery("select * from `Base` where BasePizzaSize='"+size+"' and BasePizzaCrust='"+crust+"';")) {
@@ -876,8 +920,14 @@ public final class DBNinja {
 
 
     public static ArrayList<Discount> getDiscountList() throws SQLException, IOException {
-        ArrayList<Discount> discs = new ArrayList<Discount>();
         connect_to_db();
+        /* 
+		 * Query the database for all the available discounts and 
+		 * return them in an arrayList of discounts.
+		 * 
+		*/
+        ArrayList<Discount> discs = new ArrayList<Discount>();
+        
         //returns a list of all the discounts.
         try (Statement statement = conn.createStatement();
              ResultSet resultSet = statement.executeQuery("select * from `Discount`;")) {
@@ -902,13 +952,13 @@ public final class DBNinja {
 
 
     public static ArrayList<Customer> getCustomerList() throws SQLException, IOException {
-        ArrayList<Customer> custs = new ArrayList<Customer>();
         connect_to_db();
         /*
-         * Query the data for all the customers and return an arrayList of all the customers.
-         * Don't forget to order the data coming from the database appropriately.
-         *
-         */
+		 * Query the data for all the customers and return an arrayList of all the customers. 
+		 * Don't forget to order the data coming from the database appropriately.
+		 * 
+		*/
+        ArrayList<Customer> custs = new ArrayList<Customer>();
         try (Statement statement = conn.createStatement();
              ResultSet resultSet = statement.executeQuery("select * from `Customer` where CustomerID != 1 ORDER BY CustomerID ASC;")) {
 
@@ -945,13 +995,13 @@ public final class DBNinja {
     public static void printToppingPopReport() throws SQLException, IOException {
         connect_to_db();
         /*
-         * Prints the ToppingPopularity view. Remember that this view
-         * needs to exist in your DB, so be sure you've run your createViews.sql
-         * files on your testing DB if you haven't already.
-         *
-         * The result should be readable and sorted as indicated in the prompt.
-         *
-         */
+		 * Prints the ToppingPopularity view. Remember that this view
+		 * needs to exist in your DB, so be sure you've run your createViews.sql
+		 * files on your testing DB if you haven't already.
+		 * 
+		 * The result should be readable and sorted as indicated in the prompt.
+		 * 
+		 */
         try {
             connect_to_db();
 
@@ -988,11 +1038,11 @@ public final class DBNinja {
         connect_to_db();
         /*
 		 * Prints the ProfitByPizza view. Remember that this view
-         * needs to exist in your DB, so be sure you've run your createViews.sql
-         * files on your testing DB if you haven't already.
-         *
+		 * needs to exist in your DB, so be sure you've run your createViews.sql
+		 * files on your testing DB if you haven't already.
+		 * 
 		 * The result should be readable and sorted as indicated in the prompt.
-		 *
+		 * 
 		 */
         try {
             connect_to_db();
@@ -1031,13 +1081,13 @@ public final class DBNinja {
     public static void printProfitByOrderType() throws SQLException, IOException {
         connect_to_db();
         /*
-         * Prints the ProfitByOrderType view. Remember that this view
-         * needs to exist in your DB, so be sure you've run your createViews.sql
-         * files on your testing DB if you haven't already.
-         *
-         * The result should be readable and sorted as indicated in the prompt.
-         *
-         */
+		 * Prints the ProfitByOrderType view. Remember that this view
+		 * needs to exist in your DB, so be sure you've run your createViews.sql
+		 * files on your testing DB if you haven't already.
+		 * 
+		 * The result should be readable and sorted as indicated in the prompt.
+		 * 
+		 */
         try {
             connect_to_db();
 
@@ -1074,5 +1124,4 @@ public final class DBNinja {
 
         //DO NOT FORGET TO CLOSE YOUR CONNECTION
     }
-
 }
