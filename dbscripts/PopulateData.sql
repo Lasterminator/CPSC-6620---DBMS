@@ -33,16 +33,15 @@ VALUES
 
 INSERT INTO Discount
 (DiscountName,
-DiscountPercent,
 DiscountAmount,
-DiscountType)
+IsPercent)
 VALUES
-('Employee', 15.00, 0, 'P'),
-('Lunch Special Medium', 0, 1.00, 'A'),
-('Lunch Special Large', 0, 2.00, 'A'),
-('Specialty Pizza', 0, 1.50, 'A'),
-('Gameday Special', 20.00, 0, 'P'),
-('Happy Hour', 10.00, 0, 'P');
+('Employee', 15.00,  TRUE),
+('Lunch Special Medium',  1.00, FALSE),
+('Lunch Special Large',  2.00, FALSE),
+('Specialty Pizza', 1.50, FALSE),
+('Gameday Special', 20.00, TRUE),
+('Happy Hour', 10.00, TRUE);
 
 INSERT INTO Base
 (BasePizzaSize,
@@ -76,12 +75,12 @@ VALUES
 INSERT INTO `Order` 
 (OrderID, OrderCustomerID, OrderTime, OrderType, OrderPrice, OrderCost, OrderStatus)
 VALUES
-(101, 1, '2023-03-05 12:03:00', 'DineIn',20.75, 3.68, 'Completed By Kitchen');
+(101, 1, '2023-03-05 12:03:00', 'DineIn',20.75, 3.68, TRUE);
 
 INSERT INTO Pizza
 (PizzaID, PizzaCrust, PizzaSize, PizzaOrderID, PizzaTime, PizzaState, PizzaPrice, PizzaCost)
 VALUES
-(1001, 'Thin', 'Large', 101, '2023-03-05 12:03:00', 'Completed', 20.75, 3.68);
+(1001, 'Thin', 'Large', 101, '2023-03-05 12:03:00', TRUE, 20.75, 3.68);
 
 INSERT INTO DineInOrder
 (DineInOrderID, DineInOrderTableNum)
@@ -110,13 +109,13 @@ VALUES
 
 
 INSERT INTO `Order`(OrderID, OrderCustomerID, OrderTime, OrderType, OrderPrice, OrderCost, OrderStatus)
-VALUES (102, 1, '2023-04-03 12:05:00', 'DineIn', 19.78, 4.63, 'Completed By Kitchen');
+VALUES (102, 1, '2023-04-03 12:05:00', 'DineIn', 19.78, 4.63, TRUE);
 
 INSERT INTO Pizza
 (PizzaID, PizzaCrust, PizzaSize, PizzaOrderID, PizzaTime, PizzaState, PizzaPrice, PizzaCost)
 VALUES
-(1002, 'Pan', 'Medium', 102, '2023-04-03 12:05:00', 'Completed', 12.85, 3.23),
-(1003, 'Original', 'Small', 102, '2023-04-03 12:05:00', 'Completed', 6.93, 1.40);
+(1002, 'Pan', 'Medium', 102, '2023-04-03 12:05:00', TRUE, 12.85, 3.23),
+(1003, 'Original', 'Small', 102, '2023-04-03 12:05:00', TRUE, 6.93, 1.40);
 
 INSERT INTO DineInOrder
 (DineInOrderID, DineInOrderTableNum)
@@ -179,17 +178,17 @@ VALUES
 INSERT INTO `Order`
 (OrderID, OrderCustomerID, OrderTime, OrderType, OrderPrice, OrderCost, OrderStatus)
 VALUES
-(103, 3, '2023-03-03 21:30:00', 'PickUp', 89.28, 19.80, 'Completed By Kitchen');
+(103, 3, '2023-03-03 21:30:00', 'PickUp', 89.28, 19.80, TRUE);
 
 INSERT INTO Pizza
 (PizzaID, PizzaCrust, PizzaSize, PizzaOrderID, PizzaState, PizzaPrice, PizzaCost, PizzaTime)
 VALUES
-(1004, "Original", "large", 103, "Completed", 14.88, 3.30, '2023-03-03 21:30:00'),
-(1005, "Original", "large", 103, "Completed", 14.88, 3.30, '2023-03-03 21:30:00'),
-(1006, "Original", "large", 103, "Completed", 14.88, 3.30, '2023-03-03 21:30:00'),
-(1007, "Original", "large", 103, "Completed", 14.88, 3.30, '2023-03-03 21:30:00'),
-(1008, "Original", "large", 103, "Completed", 14.88, 3.30, '2023-03-03 21:30:00'),
-(1009, "Original", "large", 103, "Completed", 14.88, 3.30, '2023-03-03 21:30:00');
+(1004, "Original", "large", 103, TRUE, 14.88, 3.30, '2023-03-03 21:30:00'),
+(1005, "Original", "large", 103, TRUE, 14.88, 3.30, '2023-03-03 21:30:00'),
+(1006, "Original", "large", 103, TRUE, 14.88, 3.30, '2023-03-03 21:30:00'),
+(1007, "Original", "large", 103, TRUE, 14.88, 3.30, '2023-03-03 21:30:00'),
+(1008, "Original", "large", 103, TRUE, 14.88, 3.30, '2023-03-03 21:30:00'),
+(1009, "Original", "large", 103, TRUE, 14.88, 3.30, '2023-03-03 21:30:00');
 
 INSERT INTO PickUpOrder
 (PickupOrderID,PickUpStatus)
@@ -261,14 +260,14 @@ FROM Topping T WHERE T.ToppingName = 'Pepperoni';
 INSERT INTO `Order`
 (OrderID, OrderCustomerID, OrderTime, OrderType, OrderPrice, OrderCost, OrderStatus)
 VALUES
-(104, 3, '2023-04-20 19:11:00', 'Delivery', 86.19, 23.62, 'Completed By Kitchen');
+(104, 3, '2023-04-20 19:11:00', 'Delivery', 86.19, 23.62, TRUE);
 
 INSERT INTO Pizza
 (PizzaID, PizzaCrust, PizzaSize, PizzaOrderID, PizzaState, PizzaPrice, PizzaCost, PizzaTime)
 VALUES
-(1010, 'Original', 'x-large', 104, 'Completed', 27.94, 9.19, '2023-04-20 19:11:00'),
-(1011, 'Original', 'x-large', 104, 'Completed', 31.50, 6.25, '2023-04-20 19:11:00'),
-(1012, 'Original', 'x-large', 104, 'Completed', 26.75, 8.18, '2023-04-20 19:11:00');
+(1010, 'Original', 'x-large', 104, TRUE, 27.94, 9.19, '2023-04-20 19:11:00'),
+(1011, 'Original', 'x-large', 104, TRUE, 31.50, 6.25, '2023-04-20 19:11:00'),
+(1012, 'Original', 'x-large', 104, TRUE, 26.75, 8.18, '2023-04-20 19:11:00');
 
 INSERT INTO PizzaTopping
 (PizzaToppingPizzaID, PizzaToppingToppingID, PizzaToppingExtraTopping)
@@ -325,10 +324,9 @@ VALUES
 (104, 5);
 
 INSERT INTO DeliveryOrder
-(DeliveryOrderID, DeliveryOrderAddress1, DeliveryOrderAddress2, DeliveryOrderZip, DeliveryOrderCity, DeliveryOrderState)
+(DeliveryOrderID, DeliveryOrderAddress)
 VALUES
-(104, '115 Party Blvd', NULL, '29631', 'Anderson', 'SC');
-
+(104, '115 Party Blvd, 29631, Anderson, SC');
 
 
 INSERT INTO Customer
@@ -339,12 +337,12 @@ VALUES
 INSERT INTO `Order` 
 (OrderID, OrderCustomerID, OrderTime, OrderType, OrderPrice, OrderCost, OrderStatus)
 VALUES
-(105, 4, '2023-03-02 17:30:00', 'PickUp', 27.45, 7.88, 'Completed By Kitchen');
+(105, 4, '2023-03-02 17:30:00', 'PickUp', 27.45, 7.88, TRUE);
 
 INSERT INTO Pizza
 (PizzaID, PizzaCrust, PizzaSize, PizzaOrderID, PizzaState, PizzaPrice, PizzaCost, PizzaTime)
 VALUES
-(1013, 'Gluten-Free', 'x-large', 105, 'Completed', 27.45, 7.88, '2023-03-02 17:30:00');
+(1013, 'Gluten-Free', 'x-large', 105, TRUE, 27.45, 7.88, '2023-03-02 17:30:00');
 
 INSERT INTO PizzaTopping
 (PizzaToppingPizzaID, PizzaToppingToppingID, PizzaToppingExtraTopping)
@@ -396,12 +394,12 @@ VALUES
 INSERT INTO `Order` 
 (OrderID, OrderCustomerID, OrderTime, OrderType, OrderPrice, OrderCost, OrderStatus)
 VALUES
-(106, 5, '2023-03-02 18:17:00', 'Delivery', 25.81, 4.24, 'Completed By Kitchen');
+(106, 5, '2023-03-02 18:17:00', 'Delivery', 25.81, 4.24, TRUE);
 
 INSERT INTO Pizza 
 (PizzaID, PizzaCrust, PizzaSize, PizzaOrderID, PizzaTime, PizzaState, PizzaPrice, PizzaCost)
 VALUES
-(1014, "Thin", "large", 106, '2023-03-02 18:17:00', "Completed", 25.81, 4.24);
+(1014, "Thin", "large", 106, '2023-03-02 18:17:00', TRUE, 25.81, 4.24);
 
 INSERT INTO PizzaTopping 
 (PizzaToppingPizzaID, PizzaToppingToppingID, PizzaToppingExtraTopping)
@@ -429,9 +427,9 @@ SELECT 1014, T.ToppingID, 1
 FROM Topping T WHERE T.ToppingName = 'Four Cheese Blend';
 
 INSERT INTO DeliveryOrder
-(DeliveryOrderID, DeliveryOrderAddress1, DeliveryOrderZip, DeliveryOrderCity, DeliveryOrderState)
+(DeliveryOrderID, DeliveryOrderAddress)
 VALUES
-(106, '6745 Wesex St', '29621', 'Anderson', 'SC');
+(106, '6745 Wesex St, 29621, Anderson, SC');
 
 
 
@@ -441,13 +439,13 @@ INSERT INTO  Customer (CustomerID, CustomerFName, CustomerLName, CustomerPhone)V
 INSERT INTO  `Order` 
 (OrderID, OrderCustomerID, OrderTime, OrderType, OrderPrice, OrderCost, OrderStatus)
 VALUES
-(107, 6,'2023-04-13 20:32:00', "Delivery",37.25 ,6.00 ,"Completed By Kitchen");
+(107, 6,'2023-04-13 20:32:00', "Delivery",37.25 ,6.00 ,TRUE);
 
 INSERT INTO  Pizza 
 (PizzaID, PizzaCrust, PizzaSize, PizzaOrderID, PizzaTime, PizzaState, PizzaPrice, PizzaCost)
 VALUES
-(1015, "Thin", "large", 107,  '2023-04-13 20:32:00',"Completed", 18.00 ,2.75),
-(1016, "Thin", "large", 107,  '2023-04-13 20:32:00',"Completed", 19.25 , 3.25);
+(1015, "Thin", "large", 107,  '2023-04-13 20:32:00',TRUE, 18.00 ,2.75),
+(1016, "Thin", "large", 107,  '2023-04-13 20:32:00',TRUE, 19.25 , 3.25);
 
 INSERT INTO  PizzaTopping 
 (PizzaToppingPizzaID, PizzaToppingToppingID, PizzaToppingExtraTopping)
@@ -470,7 +468,7 @@ VALUES
 (107,1);
 
 INSERT INTO DeliveryOrder
-(DeliveryOrderID, DeliveryOrderAddress1, DeliveryOrderZip, DeliveryOrderCity, DeliveryOrderState)
+(DeliveryOrderID, DeliveryOrderAddress)
 VALUES
-(107, '8879 Suburban Home', 29621, 'Anderson', 'SC');
+(107, '8879 Suburban Home, 29621, Anderson, SC');
 

@@ -20,7 +20,7 @@ DROP TABLE IF EXISTS `Topping`;
 DROP TABLE IF EXISTS `Base`;
 
 CREATE TABLE `Customer` (
-  `CustomerID` int NOT NULL,
+  `CustomerID` int NOT NULL auto_increment,
   `CustomerFName` varchar(15) DEFAULT NULL,
   `CustomerLName` varchar(15) DEFAULT NULL,
   `CustomerPhone` varchar(11) DEFAULT NULL,
@@ -28,13 +28,13 @@ CREATE TABLE `Customer` (
 );
 
 CREATE TABLE `Order` (
-  `OrderID` int NOT NULL,
+  `OrderID` int NOT NULL auto_increment,
   `OrderCustomerID` int NOT NULL,
   `OrderTime` datetime NOT NULL,
   `OrderType` varchar(15) NOT NULL,
   `OrderPrice` decimal(5,2) NOT NULL,
   `OrderCost` decimal(5,2) NOT NULL,
-  `OrderStatus` varchar(20) NOT NULL,
+  `OrderStatus` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`OrderID`),
   KEY `OrderCustomerIDFK1_IDx` (`OrderCustomerID`),
   CONSTRAINT `OrderCustomerIDFK1` FOREIGN KEY (`OrderCustomerID`) REFERENCES `Customer` (`CustomerID`)
@@ -49,11 +49,7 @@ CREATE TABLE `DineInOrder` (
 
 CREATE TABLE `DeliveryOrder` (
   `DeliveryOrderID` int NOT NULL,
-  `DeliveryOrderAddress1` varchar(255) NOT NULL,
-  `DeliveryOrderAddress2` varchar(255) DEFAULT NULL,
-  `DeliveryOrderZip` varchar(5) NOT NULL,
-  `DeliveryOrderCity` varchar(15) NOT NULL,
-  `DeliveryOrderState` varchar(15) NOT NULL,
+  `DeliveryOrderAddress` varchar(255) NOT NULL,
   PRIMARY KEY (`DeliveryOrderID`),
   CONSTRAINT `DeliveryOrderIDFK1` FOREIGN KEY (`DeliveryOrderID`) REFERENCES `Order` (`OrderID`)
 );
@@ -61,7 +57,7 @@ CREATE TABLE `DeliveryOrder` (
 
 CREATE TABLE `PickUpOrder` (
   `PickUpOrderID` int NOT NULL,
-  `PickupStatus` varchar(15) NOT NULL,
+  `PickupStatus` BOOLEAN NOT NULL DEFAULT 0,
   PRIMARY KEY (`PickupOrderID`),
   CONSTRAINT `PickupOrderIDFK1` FOREIGN KEY (`PickupOrderID`) REFERENCES `Order` (`OrderID`)
 ) ;
@@ -75,11 +71,11 @@ CREATE TABLE `Base` (
 ) ;
 
 CREATE TABLE `Pizza` (
-  `PizzaID` int NOT NULL,
+  `PizzaID` int NOT NULL auto_increment,
   `PizzaCrust` varchar(15) NOT NULL,
   `PizzaSize` varchar(15) NOT NULL,
   `PizzaOrderID` int NOT NULL,
-  `PizzaState` varchar(15) NOT NULL,
+  `PizzaState` tinyint(1) NOT NULL DEFAULT 0,
   `PizzaPrice` decimal(5,2) NOT NULL,
   `PizzaCost` decimal(5,2) NOT NULL,
   `PizzaTime` datetime NOT NULL,
@@ -120,8 +116,7 @@ CREATE TABLE `Discount` (
   `DiscountID` int NOT NULL AUTO_INCREMENT,
   `DiscountName` varchar(25) NOT NULL,
   `DiscountAmount` int NOT NULL,
-  `DiscountPercent` decimal(5,2) NOT NULL,
-  `DiscountType` varchar(1) NOT NULL,
+  `IsPercent` boolean NOT NULL,
   PRIMARY KEY (`DiscountID`)
 ) AUTO_INCREMENT=1 ;
 
