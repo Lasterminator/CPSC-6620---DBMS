@@ -69,7 +69,7 @@ VALUES
 INSERT INTO Customer
 (CustomerID, CustomerFName, CustomerLName, CustomerPhone)
 VALUES
-(1, 'Pickup', 'Pickup', 'Pickup');
+(1, 'DineIn', 'DineIn', 'DineIn');
 
 
 INSERT INTO `Order` 
