@@ -357,13 +357,22 @@ public class Menu {
                     return;
             }
 
+            if (orders == null || orders.isEmpty()) {
+                System.out.println("No orders to display, returning to menu.");
+                return;
+            }
 
             orders.forEach(c -> System.out.println(c.toSimplePrint()));
             System.out.println("Which order would you like to see in detail? Enter the number (-1 to exit): ");
-            Integer orderId = Integer.parseInt(reader.readLine());
+            final Integer orderId;
+            try {
+                orderId = Integer.parseInt(reader.readLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Incorrect entry, returning to menu.");
+                return;
+            }
             Order order = orders.stream().filter(o -> o.getOrderID()==orderId)
                     .findFirst().orElse(null);
-            // System.out.println("Incorrect entry, returning to menu."); you need to use this
             if (order != null) {
                 System.out.println(order.toString());
             } else {
