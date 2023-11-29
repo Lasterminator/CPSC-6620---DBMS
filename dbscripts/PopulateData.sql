@@ -486,7 +486,7 @@ VALUES
 INSERT INTO Pizza
 (PizzaID, PizzaCrust, PizzaSize, PizzaOrderID, PizzaTime, PizzaState, PizzaPrice, PizzaCost)
 VALUES
-(1001, 'Thin', 'Large', 8, '2023-03-05 12:03:00', TRUE, 20.75, 3.68);
+(1017, 'Thin', 'Large', 8, '2023-03-05 12:03:00', TRUE, 20.75, 3.68);
 
 INSERT INTO DineInOrder
 (DineInOrderID, DineInOrderTableNum)
@@ -495,17 +495,17 @@ VALUES
     
 INSERT INTO PizzaTopping
 (PizzaToppingPizzaID, PizzaToppingToppingID, PizzaToppingExtraTopping)
-SELECT 1001, T.ToppingID, TRUE 
+SELECT 1017, T.ToppingID, TRUE 
 FROM Topping T WHERE T.ToppingName = 'Regular Cheese'; 
 
 INSERT INTO PizzaTopping
 (PizzaToppingPizzaID, PizzaToppingToppingID, PizzaToppingExtraTopping)
-SELECT 1001, T.ToppingID, FALSE 
+SELECT 1017, T.ToppingID, FALSE 
 FROM Topping T WHERE T.ToppingName = 'Pepperoni';
 
 INSERT INTO PizzaTopping
 (PizzaToppingPizzaID, PizzaToppingToppingID, PizzaToppingExtraTopping)
-SELECT 1001, T.ToppingID, FALSE 
+SELECT 1017, T.ToppingID, FALSE 
 FROM Topping T WHERE T.ToppingName = 'Sausage';
 	
 INSERT INTO OrderDiscount(OrderDiscountOrderID,OrderDiscountDiscountID)
