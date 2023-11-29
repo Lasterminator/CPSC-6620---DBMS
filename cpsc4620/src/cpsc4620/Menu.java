@@ -93,7 +93,7 @@ public class Menu {
          *
          * make sure you use the prompts below in the correct order!
          */
-        
+
         Integer custId;
         double custPrice = 0;
         double busPrice = 0;
@@ -174,8 +174,6 @@ public class Menu {
     }
 
     private static void helperOrderDiscount(Order order) {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
         System.out.println("Do you want to add discounts to this order? Enter y/n?");
         try {
             Boolean addorderDiscount = "y".equals(reader.readLine());
@@ -202,8 +200,6 @@ public class Menu {
     }
 
     private static void helperPizzaDiscount(Pizza pizza) {
-        //adding discount
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         try{
             System.out.println("Do you want to add discounts to this Pizza? Enter y/n?");
             Boolean addDiscount = "y".equalsIgnoreCase(reader.readLine());
@@ -234,8 +230,6 @@ public class Menu {
     }
 
     public static void helperToppings(Pizza pizza) {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
         while(true) {
             try {
 
@@ -471,8 +465,6 @@ public class Menu {
 		 * 
 		 * Once the discounts are added, we can return the pizza
 		 */
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
         System.out.println("What size is the pizza?");
         System.out.println("1."+DBNinja.size_s);
         System.out.println("2."+DBNinja.size_m);
