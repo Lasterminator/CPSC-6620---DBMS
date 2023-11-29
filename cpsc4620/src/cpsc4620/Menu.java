@@ -75,7 +75,6 @@ public class Menu {
     // allow for a new order to be placed
     public static void EnterOrder() throws SQLException, IOException
     {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         /*
          * EnterOrder should do the following:
          *
@@ -94,21 +93,11 @@ public class Menu {
          *
          * make sure you use the prompts below in the correct order!
          */
-
-        System.out.println("Is this order for an existing customer? Answer y/n: ");
+        
         Integer custId;
         double custPrice = 0;
         double busPrice = 0;
         String date = MenuHelper.getCurrentTime();
-
-        if ("y".equalsIgnoreCase(reader.readLine())) {
-            System.out.println("Here's a list of current customers: ");
-            viewCustomers();
-            System.out.println("Which customer is this order for? Enter ID Number");
-            custId = Integer.parseInt(reader.readLine());
-        } else {
-            custId = EnterCustomer();
-        }
 
         System.out.println("Is this order for: \n1.) Dine-In\n2.) Pick-Up\n3.) Delivery\nEnter the number of your choice:");
 
@@ -118,12 +107,34 @@ public class Menu {
             case 1:
                 System.out.println("What is the table number for this order?");
                 Integer tablenum = Integer.parseInt(reader.readLine());
-                order = new DineinOrder(0, custId, date, custPrice, busPrice, 0, tablenum);
+                order = new DineinOrder(0, 0, date, custPrice, busPrice, 0, tablenum);
                 break;
             case 2:
+                System.out.println("Is this order for an existing customer? Answer y/n: ");
+
+                if ("y".equalsIgnoreCase(reader.readLine())) {
+                    System.out.println("Here's a list of current customers: ");
+                    viewCustomers();
+                    System.out.println("Which customer is this order for? Enter ID Number");
+                    custId = Integer.parseInt(reader.readLine());
+                } else {
+                    custId = EnterCustomer();
+                }
+
                 order = new PickupOrder(0, custId, date, custPrice, busPrice, 0, 0);
                 break;
             case 3:
+                System.out.println("Is this order for an existing customer? Answer y/n: ");
+
+                if ("y".equalsIgnoreCase(reader.readLine())) {
+                    System.out.println("Here's a list of current customers: ");
+                    viewCustomers();
+                    System.out.println("Which customer is this order for? Enter ID Number");
+                    custId = Integer.parseInt(reader.readLine());
+                } else {
+                    custId = EnterCustomer();
+                }
+
                 System.out.println("What is the House/Apt Number for this order? (e.g., 111)");
                 String houseNumber = reader.readLine();
                 System.out.println("What is the Street for this order? (e.g., Smile Street)");
@@ -138,6 +149,7 @@ public class Menu {
                 order = new DeliveryOrder(0, custId, date, custPrice, busPrice, 0, customerAddress);
                 break;
         }
+
 
         System.out.println("Let's build a pizza!");
         boolean addMorePizza = true;
