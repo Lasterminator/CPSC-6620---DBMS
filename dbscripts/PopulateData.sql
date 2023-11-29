@@ -477,3 +477,38 @@ INSERT INTO DeliveryOrder
 VALUES
 (7, '8879 Suburban Home, 29621, Anderson, SC');
 
+
+INSERT INTO `Order` 
+(OrderID, OrderCustomerID, OrderTime, OrderType, OrderPrice, OrderCost, OrderStatus)
+VALUES
+(8, 1, '2023-03-05 12:03:00', 'DineIn',20.75, 3.68, TRUE);
+
+INSERT INTO Pizza
+(PizzaID, PizzaCrust, PizzaSize, PizzaOrderID, PizzaTime, PizzaState, PizzaPrice, PizzaCost)
+VALUES
+(1001, 'Thin', 'Large', 8, '2023-03-05 12:03:00', TRUE, 20.75, 3.68);
+
+INSERT INTO DineInOrder
+(DineInOrderID, DineInOrderTableNum)
+VALUES
+(8, 21);
+    
+INSERT INTO PizzaTopping
+(PizzaToppingPizzaID, PizzaToppingToppingID, PizzaToppingExtraTopping)
+SELECT 1001, T.ToppingID, TRUE 
+FROM Topping T WHERE T.ToppingName = 'Regular Cheese'; 
+
+INSERT INTO PizzaTopping
+(PizzaToppingPizzaID, PizzaToppingToppingID, PizzaToppingExtraTopping)
+SELECT 1001, T.ToppingID, FALSE 
+FROM Topping T WHERE T.ToppingName = 'Pepperoni';
+
+INSERT INTO PizzaTopping
+(PizzaToppingPizzaID, PizzaToppingToppingID, PizzaToppingExtraTopping)
+SELECT 1001, T.ToppingID, FALSE 
+FROM Topping T WHERE T.ToppingName = 'Sausage';
+	
+INSERT INTO OrderDiscount(OrderDiscountOrderID,OrderDiscountDiscountID)
+VALUES
+(8,3);
+
