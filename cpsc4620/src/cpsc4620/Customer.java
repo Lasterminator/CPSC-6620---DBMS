@@ -8,7 +8,6 @@ public class Customer
     private String Phone;
     private String Address;
 
-
     public Customer(int custID, String fName, String lName, String phone) {
         CustID = custID;
         FName = fName;
@@ -32,6 +31,8 @@ public class Customer
         return Phone;
     }
 
+    public String getAddress() { return Address; }
+
     public void setCustID(int custID) {
         CustID = custID;
     }
@@ -48,7 +49,9 @@ public class Customer
         Phone = phone;
     }
 
-
+    public void setAddress (String street, String city, String state, String zip) {
+        Address = street + "/n" + city + "/n" + state + "/n" + zip;
+    }
 
     @Override
     public String toString() {

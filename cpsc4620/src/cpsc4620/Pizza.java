@@ -7,7 +7,6 @@ public class Pizza
     private String CrustType;
     private String Size;
     private int OrderID;
-    private String Date;
     private String PizzaState;
     private String PizzaDate;
     private double CustPrice;
@@ -195,4 +194,6 @@ public class Pizza
                 + " | Pizza Status: " + PizzaState + ", as of " + PizzaDate + " | Customer Price= " + CustPrice + " | Business Price= "
                 + BusPrice;
     }
+
+
 }
