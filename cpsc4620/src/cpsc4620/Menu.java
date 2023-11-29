@@ -282,8 +282,6 @@ public class Menu {
          *
          * Once you get the name and phone number, add it to the DB
          */
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
         System.out.println("What is this customer's name (first <space> last)");
 
         String customerName = reader.readLine();
@@ -322,8 +320,6 @@ public class Menu {
 		* The details include the full order type information, the pizza information (including pizza discounts), and the order discounts.
 		* 
 		*/ 
-			
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         System.out.println("Would you like to:\n(a) display all orders [open or closed]\n(b) display all open orders\n(c) display all completed [closed] orders\n(d) display orders since a specific date");
 
@@ -396,8 +392,6 @@ public class Menu {
         for (Order order : orders) {
             System.out.println(order.toSimplePrint());
         }
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
 
         System.out.println("Which order would you like mark as complete? Enter the OrderID: ");
         Integer orderId = Integer.parseInt(reader.readLine());

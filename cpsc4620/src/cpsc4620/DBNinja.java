@@ -521,9 +521,9 @@ public final class DBNinja {
              ResultSet resultSet = statement.executeQuery(selectQuery)) {
 
             if (resultSet.next()) { // Check if there is an order
-                Integer orderId = resultSet.getInt("OrderId");
+                Integer orderId = resultSet.getInt("OrderID");
                 String orderType = resultSet.getString("OrderType");
-                Integer customerId = resultSet.getInt("CustomerId");
+                Integer customerId = resultSet.getInt("CustomerID");
                 Double orderCost = resultSet.getDouble("OrderCost");
                 Double orderPrice = resultSet.getDouble("OrderPrice");
                 String orderTime = resultSet.getString("OrderTime");
