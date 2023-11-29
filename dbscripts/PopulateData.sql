@@ -69,7 +69,12 @@ VALUES
 INSERT INTO Customer
 (CustomerID, CustomerFName, CustomerLName, CustomerPhone)
 VALUES
-(1, 'DineIn', 'DineIn', 'DineIn');
+(1, 'DineIn', 'DineIn', '1212112121');
+
+INSERT INTO Customer
+(CustomerID, CustomerFName, CustomerLName, CustomerPhone)
+VALUES
+(2, 'speed', 'show', '1212112121');
 
 
 INSERT INTO `Order` 
