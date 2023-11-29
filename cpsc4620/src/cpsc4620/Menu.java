@@ -442,7 +442,7 @@ public class Menu {
             Double amountToAdd = Double.parseDouble(reader.readLine());
             ArrayList<Topping> toppings = DBNinja.getToppingList();
             Topping topping = toppings.stream().filter(t->t.getTopID()==toppingId).findFirst().orElse(null);
-            DBNinja.addToInventory(topping, amountToAdd)
+            DBNinja.addToInventory(topping, amountToAdd);
             // System.out.println("Incorrect entry, not an option");
         } catch (Exception e) {
             throw e;
