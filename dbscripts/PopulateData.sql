@@ -512,3 +512,4 @@ INSERT INTO OrderDiscount(OrderDiscountOrderID,OrderDiscountDiscountID)
 VALUES
 (8,3);
 
+-- INSERT
