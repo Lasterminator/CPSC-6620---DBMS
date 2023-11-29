@@ -431,7 +431,6 @@ public class Menu {
         /*
 		 * This should print the current inventory and then ask the user which topping (by ID) they want to add more to and how much to add
 		 */
-//        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         try {
             ViewInventoryLevels();
             System.out.println("Which topping do you want to add inventory to? Enter the number: ");
@@ -514,7 +513,6 @@ public class Menu {
 
     public static void PrintReports() throws SQLException, NumberFormatException, IOException
     {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Which report do you wish to print? Enter\n(a) ToppingPopularity\n(b) ProfitByPizza\n(c) ProfitByOrderType:");
 
         switch(reader.readLine()) {
