@@ -107,7 +107,7 @@ public class Menu {
             case 1:
                 System.out.println("What is the table number for this order?");
                 Integer tablenum = Integer.parseInt(reader.readLine());
-                order = new DineinOrder(0, 0, date, custPrice, busPrice, 0, tablenum);
+                order = new DineinOrder(0, 1, date, custPrice, busPrice, 0, tablenum);
                 break;
             case 2:
                 System.out.println("Is this order for an existing customer? Answer y/n: ");
