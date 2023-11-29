@@ -224,10 +224,9 @@ public class Menu {
     public static void helperToppings(Pizza pizza) {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-        Boolean addMoreTopping = true;
-
-        while(addMoreTopping) {
+        while(true) {
             try {
+
                 ArrayList<Topping> toppings = ViewInventoryLevels();
 
                 System.out.println("Which topping do you want to add? Enter the TopID. Enter -1 to stop adding toppings: ");
@@ -244,9 +243,6 @@ public class Menu {
                 isExtra = "y".equalsIgnoreCase(reader.readLine());
                 pizza.addToppings(topping, isExtra);
 
-                System.out.println("Do you want to add another topping : type y/n:"); // need to remove, repeats abvoe print statment
-                if("y".equalsIgnoreCase(reader.readLine())) addMoreTopping = true;
-                else addMoreTopping = false;
 
                 // System.out.println("We don't have enough of that topping to add it..."); need to implement
             }
@@ -443,7 +439,7 @@ public class Menu {
 
             System.out.println("How many units would you like to add? ");
 
-            Double amountToAdd = Double.parseDouble(reader.readLine());
+            Integer amountToAdd = Integer.parseInt(reader.readLine());
             ArrayList<Topping> toppings = DBNinja.getToppingList();
             Topping topping = toppings.stream().filter(t->t.getTopID()==toppingId).findFirst().orElse(null);
             DBNinja.AddToInventory(topping, amountToAdd);

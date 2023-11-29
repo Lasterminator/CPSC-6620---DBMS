@@ -375,7 +375,7 @@ public final class DBNinja {
     }
 
 
-    public static void AddToInventory(Topping t, double toAdd) throws SQLException, IOException {
+    public static void AddToInventory(Topping t, Integer toAdd) throws SQLException, IOException {
         connect_to_db();
         /*
          * Adds toAdd amount of topping to topping t.
@@ -384,7 +384,7 @@ public final class DBNinja {
             String updateStatement = "update `Topping` set ToppingCurrentInventory = ToppingCurrentInventory +(?) where ToppingId = ? ;";
 
             PreparedStatement preparedStatement = conn.prepareStatement(updateStatement);
-            preparedStatement.setDouble(1, toAdd);
+            preparedStatement.setInt(1, toAdd);
             preparedStatement.setInt(2, t.getTopID());
             preparedStatement.executeUpdate();
         }  catch (Exception e) {
