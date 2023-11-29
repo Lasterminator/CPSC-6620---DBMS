@@ -374,28 +374,6 @@ public final class DBNinja {
         //DO NOT FORGET TO CLOSE YOUR CONNECTION
     }
 
-
-    public static void AddToInventory(Topping t, Integer toAdd) throws SQLException, IOException {
-        connect_to_db();
-        /*
-         * Adds toAdd amount of topping to topping t.
-         */
-        try {
-            String updateStatement = "update `Topping` set ToppingCurrentInventory = ToppingCurrentInventory +(?) where ToppingId = ? ;";
-
-            PreparedStatement preparedStatement = conn.prepareStatement(updateStatement);
-            preparedStatement.setInt(1, toAdd);
-            preparedStatement.setInt(2, t.getTopID());
-            preparedStatement.executeUpdate();
-        }  catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            conn.close();
-        }
-        //DO NOT FORGET TO CLOSE YOUR CONNECTION
-    }
-
-
     public static void printInventory() throws SQLException, IOException {
         connect_to_db();
 
@@ -741,30 +719,23 @@ public final class DBNinja {
 
     public static void addToInventory(Topping t, double quantity) throws SQLException, IOException {
         connect_to_db();
-        /*
-		 * Updates the quantity of the topping in the database by the amount specified.
-		 * 
-		 * */
 
         String updateQuery = "UPDATE Topping SET ToppingCurrentInventory = ToppingCurrentInventory + ? WHERE ToppingID = ?";
 
         try (PreparedStatement preparedStatement = conn.prepareStatement(updateQuery)) {
-            // Set parameters for the prepared statement
-            preparedStatement.setDouble(1, quantity); // The quantity to add
-            preparedStatement.setInt(2, t.getTopID()); // The ID of the topping to update
+            preparedStatement.setDouble(1, quantity);
+            preparedStatement.setInt(2, t.getTopID());
 
-            // Execute the update
             int affectedRows = preparedStatement.executeUpdate();
 
-            // Optional: Check if the update was successful
             if (affectedRows == 0) {
                 throw new SQLException("Updating inventory failed, no rows affected.");
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Handle exceptions
+            e.printStackTrace();
         } finally {
             try {
-                if (conn != null) conn.close(); // Close connection
+                if (conn != null) conn.close();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }

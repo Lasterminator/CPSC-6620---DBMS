@@ -431,7 +431,7 @@ public class Menu {
         /*
 		 * This should print the current inventory and then ask the user which topping (by ID) they want to add more to and how much to add
 		 */
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+//        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         try {
             ViewInventoryLevels();
             System.out.println("Which topping do you want to add inventory to? Enter the number: ");
