@@ -422,9 +422,9 @@ public final class DBNinja {
              ResultSet resultSet = statement.executeQuery(selectQuery)) {
 
             while (resultSet.next()) {
-                Integer orderId = resultSet.getInt("OrderId");
+                Integer orderId = resultSet.getInt("OrderID");
                 String orderType = resultSet.getString("OrderType");
-                Integer customerId = resultSet.getInt("OrderCustomerId");
+                Integer customerId = resultSet.getInt("OrderCustomerID");
                 Double orderCost = resultSet.getDouble("OrderCost");
                 Double orderPrice = resultSet.getDouble("OrderPrice");
                 String orderTime = resultSet.getString("OrderTime");
@@ -465,9 +465,9 @@ public final class DBNinja {
              ResultSet resultSet = statement.executeQuery(selectQuery)) {
 
             while (resultSet.next()) {
-                Integer orderId = resultSet.getInt("OrderId");
+                Integer orderId = resultSet.getInt("OrderID");
                 String orderType = resultSet.getString("OrderType");
-                Integer customerId = resultSet.getInt("OrderCustomerId");
+                Integer customerId = resultSet.getInt("OrderCustomerID");
                 Double orderCost = resultSet.getDouble("OrderCost");
                 Double orderPrice = resultSet.getDouble("OrderPrice");
                 String orderTime = resultSet.getString("OrderTime");
@@ -769,12 +769,6 @@ public final class DBNinja {
                 ex.printStackTrace();
             }
         }
-
-
-
-
-
-
 
         //DO NOT FORGET TO CLOSE YOUR CONNECTION
     }

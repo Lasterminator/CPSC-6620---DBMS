@@ -439,10 +439,10 @@ public class Menu {
 
             System.out.println("How many units would you like to add? ");
 
-            Integer amountToAdd = Integer.parseInt(reader.readLine());
+            Double amountToAdd = Double.parseDouble(reader.readLine());
             ArrayList<Topping> toppings = DBNinja.getToppingList();
             Topping topping = toppings.stream().filter(t->t.getTopID()==toppingId).findFirst().orElse(null);
-            DBNinja.AddToInventory(topping, amountToAdd);
+            DBNinja.addToInventory(topping, amountToAdd)
             // System.out.println("Incorrect entry, not an option");
         } catch (Exception e) {
             throw e;
