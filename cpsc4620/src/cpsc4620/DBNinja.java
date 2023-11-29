@@ -521,13 +521,13 @@ public final class DBNinja {
              ResultSet resultSet = statement.executeQuery(selectQuery)) {
 
             if (resultSet.next()) { // Check if there is an order
-                Integer orderId = resultSet.getInt("OrderID");
+                Integer orderId = resultSet.getInt("OrderId");
                 String orderType = resultSet.getString("OrderType");
-                Integer customerId = resultSet.getInt("CustomerID");
+                Integer customerId = resultSet.getInt("OrderCustomerID");
                 Double orderCost = resultSet.getDouble("OrderCost");
                 Double orderPrice = resultSet.getDouble("OrderPrice");
                 String orderTime = resultSet.getString("OrderTime");
-                int isComplete = resultSet.getInt("IsComplete");
+                int isComplete = resultSet.getInt("OrderStatus");
 
                 lastOrder = new Order(orderId, customerId, orderType, orderTime, orderCost, orderPrice, isComplete);
             }
