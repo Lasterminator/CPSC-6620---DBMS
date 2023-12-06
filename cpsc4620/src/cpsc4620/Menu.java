@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /*
  * This file is where the front end magic happens.
@@ -97,7 +99,7 @@ public class Menu {
         Integer custId;
         double custPrice = 0;
         double busPrice = 0;
-        String date = MenuHelper.getCurrentTime();
+        String date = getCurrentTime();
 
         System.out.println("Is this order for: \n1.) Dine-In\n2.) Pick-Up\n3.) Delivery\nEnter the number of your choice:");
 
@@ -472,7 +474,7 @@ public class Menu {
         System.out.println("4."+DBNinja.size_xl);
         System.out.println("Enter the corresponding number: ");
         Integer pizzaSizeMenuid = Integer.parseInt(reader.readLine());
-        String pizzaSize = MenuHelper.getPizzaSize(pizzaSizeMenuid);
+        String pizzaSize = getPizzaSize(pizzaSizeMenuid);
 
         System.out.println("What crust for this pizza?");
         System.out.println("1."+DBNinja.crust_thin);
@@ -481,9 +483,9 @@ public class Menu {
         System.out.println("4."+DBNinja.crust_gf);
         System.out.println("Enter the corresponding number: ");
         Integer pizzaCrustMenuid = Integer.parseInt(reader.readLine());
-        String pizzaCrust = MenuHelper.getPizzaCrust(pizzaCrustMenuid);
+        String pizzaCrust = getPizzaCrust(pizzaCrustMenuid);
 
-        String pizzaTimeStamp = MenuHelper.getCurrentTime();
+        String pizzaTimeStamp = getCurrentTime();
         double pizzaCustPrice = DBNinja.getBaseCustPrice(pizzaSize, pizzaCrust);
         double pizzaBusPrice = DBNinja.getBaseBusPrice(pizzaSize, pizzaCrust);
         Pizza pizza = new Pizza(0, pizzaSize, pizzaCrust, 0, "PREPARING", pizzaTimeStamp, pizzaCustPrice, pizzaBusPrice);
@@ -527,6 +529,25 @@ public class Menu {
                 System.out.println("I don't understand that input... returning to menu...");
                 return;
         }
+    }
+
+    public static String getPizzaCrust(int menuId){
+        if(menuId==1) return "Thin";
+        else if(menuId==2) return "Original";
+        else if(menuId==3) return "Pan";
+        else return "Gluten-Free";
+    }
+
+    public static String getPizzaSize(int menuId){
+        if(menuId==1) return "small";
+        else if(menuId==2) return "medium";
+        else if(menuId==3) return "large";
+        else return "x-large";
+    }
+
+    public static String getCurrentTime() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        return dtf.format(LocalDateTime.now());
     }
 
     //Prompt - NO CODE SHOULD TAKE PLACE BELOW THIS LINE

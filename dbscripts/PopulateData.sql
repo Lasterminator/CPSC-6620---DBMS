@@ -511,5 +511,3 @@ FROM Topping T WHERE T.ToppingName = 'Sausage';
 INSERT INTO OrderDiscount(OrderDiscountOrderID,OrderDiscountDiscountID)
 VALUES
 (8,3);
-
--- INSERT
