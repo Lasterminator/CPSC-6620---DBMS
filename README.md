@@ -2,6 +2,6 @@
  Pizzeria Java Project
 
 # Contributers
-Trinath Sai Subhash Reddy Pittala
-Uma Mahesh Meleti
+Trinath Sai Subhash Reddy Pittala,
+Uma Mahesh Meleti,
 Hemanth Vasireddy
